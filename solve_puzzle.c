@@ -68,6 +68,5 @@ void	solve_map(t_data *data, t_tetris *tetris)
 		{
 			data->count--;
 		}
-
 	}
 }
