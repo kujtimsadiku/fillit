@@ -47,7 +47,7 @@ static int	recursive_solving(t_data *data, t_tetris *tetris, int y, int x)
 		{
 			if (tetris->tetriminos[data->count].piece[y][x] == HASH)
 				tetris->map[y][x] = symbol(data->count);
-			i++;
+			x++;
 		}
 		y++;
 	}
