@@ -15,8 +15,8 @@ typedef struct	s_data
 {
 	int i;
 	int j;
-	int x1;
-	int y1;
+	int x;
+	int y;
 	int x2;
 	int y2;
 	int new_res;
@@ -46,7 +46,13 @@ typedef struct	s_tetris
 }				t_tetris;
 
 void	check_map(t_data *data, char *filename);
+void	create_map(t_data *data, t_tetris *tetris);
+void	clean_map(t_data *data, t_tetris *tetris);
+void	re_create_map(t_data *data, t_tetris *tetris, int nb);
+void	solve_map(t_data *data, t_tetris *tetris);
 void	save_tetrimino(t_data *data, t_tetris *tetris);
+char	symbol(int symbol_nb);
+
 // void	solve_map(t_data *data, t_tetris *tetris);
 
 #endif

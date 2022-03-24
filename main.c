@@ -9,7 +9,7 @@ int main(void)
 	// 	exit(0);
 	check_map(&data, "map.txt");
 	save_tetrimino(&data, &tetris);
-	// solve_map(&data, &tetris);
+	solve_map(&data, &tetris);
 
 	return (0);
 }
