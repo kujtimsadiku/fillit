@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:43 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/03/22 14:52:19 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/03/23 18:59:18 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	struct_tetrimino(t_data *data, t_tetris *tetris)
 	{
 		if (tetris->piece[data->j][0] != NL)
 		{
-			ft_strncpy(tetris->tetriminos[++count].piece[data->i], tetris->piece[data->j], 4);
+			ft_bzero(tetris->tetriminos[++count].piece[data->i], 5);
+			ft_memcpy(tetris->tetriminos[count].piece[data->i], tetris->piece[data->j], 4);
 			printf("%s", tetris->tetriminos[count].piece[data->i]);
 			data->i++;
 		}
@@ -49,8 +50,6 @@ void	save_tetrimino(t_data *data, t_tetris *tetris)
 		tetris->piece[data->j][data->i] = data->c;
 		if (tetris->piece[data->j][data->i] == NL)
 		{
-			tetris->piece[data->j][data->i + 1] = '\0';
-			// printf("%s", tetris->piece[data->j]);
 			data->j++;
 			data->i = -1;
 		}

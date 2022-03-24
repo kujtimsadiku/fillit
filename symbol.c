@@ -1,5 +1,5 @@
 /*
-	This is for the  symbolwe going to add.
+	This is for the  symbol we going to add.
 	It takes the piece number tetris->tetrimino[count] 
 	and adds character + the number;
 */
