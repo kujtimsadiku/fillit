@@ -19,15 +19,19 @@ typedef struct	s_data
 	int y;
 	int x2;
 	int y2;
-	int new_res;
+	int new_size;
 	int count;
-	int res;
+	int size;
 	int limit;
 	int	tetrimino;
 	int hash; // amount of hastags
 	int dot; // amount of dots
 	int newline; // amount of newlines
 	int multip;
+	int counthash;
+	int py[4];
+	int px[4];
+	int yx[2];
 	char c;
 	char puzzle[500];
 }				t_data;
@@ -47,7 +51,6 @@ typedef struct	s_tetris
 
 void	check_map(t_data *data, char *filename);
 void	create_map(t_data *data, t_tetris *tetris);
-void	clean_map(t_data *data, t_tetris *tetris);
 void	re_create_map(t_data *data, t_tetris *tetris, int nb);
 void	solve_map(t_data *data, t_tetris *tetris);
 void	save_tetrimino(t_data *data, t_tetris *tetris);
