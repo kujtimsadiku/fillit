@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:46:11 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/03/25 14:59:37 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/03/28 14:05:57 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	re_create_map(t_data *data, t_tetris *tetris, int nb)
 		ft_memset(tetris->map[i], '.', nb);
 		printf("%s\n",  tetris->map[i]);
 	}
-	data->new_size = nb;
+	data->size = nb;
+	data->y = 0;
+	data->x = 0;
 }
 
 void	create_map(t_data *data, t_tetris *tetris)
@@ -41,6 +43,5 @@ void	create_map(t_data *data, t_tetris *tetris)
 		ft_memset(tetris->map[i], '.', data->size);
 		printf("%s\n", tetris->map[i]);
 	}
-	data->new_size = data->size;
 	printf("The map is created\n");
 }
