@@ -23,7 +23,7 @@ typedef struct	s_data
 	int count;
 	int size;
 	int limit;
-	int	tetrimino;
+	int	tetrimino; // pieces
 	int hash; // amount of hastags
 	int dot; // amount of dots
 	int newline; // amount of newlines
@@ -46,7 +46,7 @@ typedef struct	s_tetris
 	char	map[50][50];
 	char 	piece[500][500];
 	char	block[4][4];
-	t_tetrimino tetriminos[28];
+	t_tetrimino minos[28];
 }				t_tetris;
 
 void	check_map(t_data *data, char *filename);
@@ -55,7 +55,9 @@ void	re_create_map(t_data *data, t_tetris *tetris, int nb);
 void	solve_map(t_data *data, t_tetris *tetris);
 void	save_tetrimino(t_data *data, t_tetris *tetris);
 char	symbol(int symbol_nb);
-
-// void	solve_map(t_data *data, t_tetris *tetris);
+void	shifter(t_data *data);
+void	cleanblock(t_data *data, t_tetris *tetris);
+int		check_cordination(t_data *data, int y, int x);
+int		check_placement(t_data *data, t_tetris *tetris, int y, int x);
 
 #endif
