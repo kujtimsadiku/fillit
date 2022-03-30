@@ -56,8 +56,7 @@ void	solve_map(t_data *data, t_tetris *tetris);
 void	save_tetrimino(t_data *data, t_tetris *tetris);
 char	symbol(int symbol_nb);
 void	shifter(t_data *data);
-void	cleanblock(t_data *data, t_tetris *tetris);
+void	cleanblock(t_data *data, t_tetris *tetris, int count);
 int		check_cordination(t_data *data, int y, int x);
-int		check_placement(t_data *data, t_tetris *tetris, int y, int x);
 
 #endif

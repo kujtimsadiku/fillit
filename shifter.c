@@ -29,3 +29,5 @@ void	shifter(t_data *data)
 			shift_y(data, -1);
 		}
 }
+
+/*shifter for all direction??*/

@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:46:11 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/03/29 19:31:15 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/03/30 13:29:08 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,37 +47,33 @@ void	create_map(t_data *data, t_tetris *tetris)
 	printf("The map is created\n");
 }
 
-void	cleanblock(t_data *data, t_tetris *tetris)
+void	cleanblock(t_data *data, t_tetris *tetris, int count)
 {
-	// int y;
-	// int x;
+	int y;
+	int x;
 	int countletter;
 
 	countletter = 0;
-	data->y = 0;
-	while (tetris->map[data->y] && data->y < data->size)
+	y = 0;
+	// count -= 1;
+	while (tetris->map[y] && y < data->size)
 	{
-		data->x = 0;
-		while (tetris->map[data->y][data->x] && data->x < data->size)
+		x = 0;
+		while (tetris->map[y][x] && x < data->size)
 		{
-			if (tetris->map[data->y][data->x] == 'A' + data->count)
+			if (tetris->map[y][x] == 'A' + count)
 			{
 				countletter++;
-				tetris->map[data->y][data->x] = DOT;
+				tetris->map[y][x] = DOT;
+				if (countletter == 1)
+					data->y = y;
 			}
-			// if (countletter == 1)
-			// {
-			// 	// if (x == 4)
-			// 	// 	data->y = y;
-			// 	// data->x = x + 1;
-			// 	// data->y = y +;
-			// }
-			data->x++;
+			x++;
 		}
-		data->y++;
-		if (countletter == 4 && data->x < data->size)
+		if (countletter == 4)
 		{
-			check_placement(data, tetris, data->y + 1, data->x);
+			break ;
 		}
+		y++;
 	}
 }
