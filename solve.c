@@ -14,8 +14,6 @@ static void block_values(t_data *data, t_tetris *tetris, int count)
 			{
 				data->py[data->counthash] = y;
 				data->px[data->counthash] = x;
-				printf("py[%d] == HASH\n", data->py[data->counthash]);
-				printf("px[%d] == HASH\n", data->px[data->counthash]);
 				data->counthash++;
 			}
 			if (data->counthash == 4)
@@ -41,58 +39,26 @@ static int	placeblock(t_data *data, t_tetris *tetris, int y, int x, int count)
 		tetris->map[y + data->py[1]][x + data->px[1]] = 'A' + count;
 		tetris->map[y + data->py[2]][x + data->px[2]] = 'A' + count;
 		tetris->map[y + data->py[3]][x + data->px[3]] = 'A' + count;
-		int i = 0;
-		while (i < data->size)
-		{
-			printf("%s\n", tetris->map[i]);
-			i++;
-		}
-		sleep(5);
+		// int i = 0;
+		// while (i < data->size)
+		// {
+		// 	printf("%s\n", tetris->map[i]);
+		// 	i++;
+		// }
+		// printf("\n");
+		// sleep(1);
 		return (1);
 	}
 	else
 		return (0);
 }
 
-/*----checks if the y and x is dot----*/
-// static int	check_placement(t_data *data, t_tetris *tetris, int count)
-// {
-// 	data->y = 0;
-// 	while (tetris->map[data->y] && data->y < data->size)
-// 	{
-// 		data->x = 0;
-// 		while (tetris->map[data->y][data->x] && data->x < data->size)
-// 		{
-// 			if (tetris->map[data->y][data->x] == DOT)
-// 			{
-// 				if (placeblock(data, tetris, data->y, data->x, count) == 1)
-// 					return (1);
-// 			}
-// 			data->x++;
-// 		}
-// 		data->y++;
-// 	}
-// 	return (0);
-// }
-
-/*	// block_values(data, tetris, count);
-	// while (check_placement(data, tetris, count))
-	// {
-	// 	if (solving(data, tetris, count + 1))
-	// 		return (1);
-	// 	else
-	// 	{
-
-	// 		cleanblock(data, tetris, count);
-	// 	}
-	// }
-	// return (0);*/
 static int	solving(t_data *data, t_tetris *tetris, int count)
 {
 	data->y = 0;
-	data->x = 0;
 	while (tetris->map[data->y] && data->y < data->size)
 	{
+		data->x = 0;
 		while (tetris->map[data->y][data->x] && data->x < data->size)
 		{
 			if (tetris->map[data->y][data->x] == DOT)
@@ -104,6 +70,8 @@ static int	solving(t_data *data, t_tetris *tetris, int count)
 						return (1);
 					else
 						cleanblock(data, tetris, count);
+					if (count + 1 == data->tetrimino)
+						return (1);
 				}
 			}
 			data->x++;
@@ -120,13 +88,19 @@ static int	solving(t_data *data, t_tetris *tetris, int count)
 */
 void	solve_map(t_data *data, t_tetris *tetris)
 {
-	data->count = 0;
 	data->y = 0;
 	data->x = 0;
 	create_map(data, tetris);
 	while (!solving(data, tetris, 0))
 	{
 		re_create_map(data, tetris, data->size + 1);
-		data->counthash = 0;
+		data->count = 0;
 	}
+	int i = 0;
+	while (i < data->size)
+	{
+		printf("%s\n", tetris->map[i]);
+		i++;
+	}
+	printf("\n");
 }
