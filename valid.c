@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:47 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/03/24 12:41:57 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/03/31 14:56:38 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,12 @@ static void	check_tetrimino(t_data *data)
 	if (data->hash == 4 && data->dot == 12 && data->newline == 5)
 	{
 		data->tetrimino++;
-		printf("Tetrimino: %d\n", data->tetrimino);
-		printf("HASH: %d\n", data->hash);
 		data->hash = 0;
 		data->newline = 0;
 		data->dot = 0;
 	}
 	else
 	{
-		printf("Invalid map");
 		exit(0);
 	}
 }
@@ -66,26 +63,15 @@ static void	find_tetrimino(t_data *data)
 		if ((data->puzzle[i + 1] == HASH && data->puzzle[i] == HASH)
 			|| (data->puzzle[i + 5] == HASH && data->puzzle[i] == HASH))
 			data->hash++;
-		else if (i > 1 && ((data->puzzle[i - 1] == HASH
+		else if (i > 0 && ((data->puzzle[i - 1] == HASH
 					&& data->puzzle[i] == HASH) || (data->puzzle[i - 5]
 					== HASH && data->puzzle[i] == HASH)))
 			data->hash++;
 		if (data->puzzle[i] == NL && data->puzzle[i - 1] == NL)
 			check_tetrimino(data);
 	}
-	if (0 != i % data->limit) 	//"Checks the map is valid size"
-	{
-		printf("%lu\n", strlen(data->puzzle));
-		printf("Exit on if (0 != i %% data->limit)");
+	if (0 != i % data->limit)
 		exit(0);
-	}
-	// if (data->puzzle[i - 1] == NL && data->puzzle[i]
-	// 	== '\0' && data->puzzle[i - 2] != NL)
-	// {
-	// 	printf("Invalid map; Exit on if i == null, i - 1 == newline and i - 2 is not equal to newline\n");
-	// 	exit(0);
-	// }
-	printf("Reading was success\n");
 }
 
 void	check_map(t_data *data, char *filename)

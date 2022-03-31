@@ -1,33 +1,35 @@
 #include "fillit.h"
 
-static void shift_x(t_data *data, int n)
+static void shift_x(t_data *data, int p, int n)
 {
-	data->px[0] += n;
-	data->px[1] += n;
-	data->px[2] += n;
-	data->px[3] += n;
+	data->px[p][0] += n;
+	data->px[p][1] += n;
+	data->px[p][2] += n;
+	data->px[p][3] += n;
 }
 
-static void shift_y(t_data *data, int n)
+static void shift_y(t_data *data, int p, int n)
 {
-	data->py[0] += n;
-	data->py[1] += n;
-	data->py[2] += n;
-	data->py[3] += n;
+	data->py[p][0] += n;
+	data->py[p][1] += n;
+	data->py[p][2] += n;
+	data->py[p][3] += n;
 }
 
-void	shifter(t_data *data)
+void	shifter(t_data *data, int p)
 {
-	while (data->px[0] != 0 && data->px[1] != 0 &&
-		data->px[2] != 0 && data->px[3] != 0)
+	while (data->px[p][0] != 0 && data->px[p][1] != 0 &&
+		data->px[p][2] != 0 && data->px[p][3] != 0)
 		{
-			shift_x(data, -1);
+			shift_x(data, p, -1);
 		}
-	while (data->py[0] != 0 && data->py[1] != 0 &&
-		data->py[2] != 0 && data->py[3] != 0)
+	while (data->py[p][0] != 0 && data->py[p][1] != 0 &&
+		data->py[p][2] != 0 && data->py[p][3] != 0)
 		{
-			shift_y(data, -1);
+			shift_y(data, p, -1);
 		}
+	while (data->px[p][0] != 0 && data->py[p][0] == 0)
+		shift_x(data, p, -1);
 }
 
 /*shifter for all direction??*/

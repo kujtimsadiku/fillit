@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:46:11 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/03/30 13:29:08 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/03/31 18:33:23 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ void	re_create_map(t_data *data, t_tetris *tetris, int nb)
 	int	i;
 
 	i = -1;
-	while (++i < nb){
+	while (++i < nb)
 		ft_memset(tetris->map[i], '.', nb);
-		printf("%s\n",  tetris->map[i]);
-	}
 	data->size = nb;
 	data->y = 0;
 	data->x = 0;
@@ -31,7 +29,7 @@ void	re_create_map(t_data *data, t_tetris *tetris, int nb)
 void	create_map(t_data *data, t_tetris *tetris)
 {
 	int	i;
-	double ret;
+	int ret;
 
 	ret = ft_sqrt(data->tetrimino * 4);
 	data->size = ret;
@@ -42,9 +40,7 @@ void	create_map(t_data *data, t_tetris *tetris)
 	{
 		ft_bzero(tetris->map[i], data->size + 1);
 		ft_memset(tetris->map[i], '.', data->size);
-		printf("%s\n", tetris->map[i]);
 	}
-	printf("The map is created\n");
 }
 
 void	cleanblock(t_data *data, t_tetris *tetris, int count)
@@ -55,7 +51,6 @@ void	cleanblock(t_data *data, t_tetris *tetris, int count)
 
 	countletter = 0;
 	y = 0;
-	// count -= 1;
 	while (tetris->map[y] && y < data->size)
 	{
 		x = 0;
@@ -66,7 +61,10 @@ void	cleanblock(t_data *data, t_tetris *tetris, int count)
 				countletter++;
 				tetris->map[y][x] = DOT;
 				if (countletter == 1)
+				{
 					data->y = y;
+					data->x = x;
+				}
 			}
 			x++;
 		}
