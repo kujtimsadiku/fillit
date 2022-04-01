@@ -6,7 +6,8 @@
 # include <fcntl.h>
 # include "libft/includes/libft.h"
 
-# define BUFFSIZE 550
+# define MAXMAP 20
+# define BUFFSIZE 600
 # define NL '\n'
 # define HASH '#'
 # define DOT '.'
@@ -29,7 +30,7 @@ typedef struct	s_data
 	int		py[30][4];
 	int		px[30][4];
 	char	c;
-	char	puzzle[500];
+	char	puzzle[600];
 }				t_data;
 
 typedef struct	s_tetrimino
@@ -39,8 +40,8 @@ typedef struct	s_tetrimino
 
 typedef struct	s_tetris
 {
-	char		map[100][100];
-	char		piece[1000][1000];
+	char		map[20][20];
+	char		piece[500][500];
 	char		block[4][4];
 	t_tetrimino	minos[28];
 }				t_tetris;

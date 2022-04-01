@@ -69,16 +69,11 @@ static int	solving(t_data *data, t_tetris *tetris, int count)
 					if (solving(data, tetris, count + 1))
 						return (1);
 					else
-					{
-						// data->x -= 1;
 						cleanblock(data, tetris, count);
-					}
 				}
 			}
 			data->x++;
 		}
-		// data->x = 0;
-		// data->y++;
 	}
 	return (0);
 }

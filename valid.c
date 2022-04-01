@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:47 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/03/31 14:56:38 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/01 14:19:44 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	add_data_values(t_data *data)
 	data->newline = 0;
 	data->tetrimino = 0;
 	data->limit = 21;
+	data->counthash = 0;
 }
 
 static void	read_file(t_data *data, char *filename)

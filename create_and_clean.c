@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:46:11 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/03/31 18:33:23 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/01 14:29:58 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	create_map(t_data *data, t_tetris *tetris)
 	i = -1;
 	while (++i < data->size)
 	{
-		ft_bzero(tetris->map[i], data->size + 1);
+		// ft_bzero(tetris->map[i], data->size + 1);
 		ft_memset(tetris->map[i], '.', data->size);
 	}
 }
