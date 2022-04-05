@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:47 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/01 14:19:44 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/05 16:00:21 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ static void	read_file(t_data *data, char *filename)
 	int	fd;
 
 	fd = open(filename, O_RDONLY);
+	if (fd == 0)
+		errors(0);
 	ret = read(fd, data->puzzle, BUFFSIZE);
 	if (ret < 0)
-		exit(0);
+		errors(0);
 	data->puzzle[ret] = '\0';
 	close(fd);
 }
@@ -46,7 +48,7 @@ static void	check_tetrimino(t_data *data)
 	}
 	else
 	{
-		exit(0);
+		errors(0);
 	}
 }
 
@@ -56,7 +58,7 @@ static void	find_tetrimino(t_data *data)
 
 	i = -1;
 	while (data->puzzle[++i])
-	{
+	{	
 		if (data->puzzle[i] == DOT)
 			data->dot++;
 		if (data->puzzle[i] == NL)
@@ -71,8 +73,10 @@ static void	find_tetrimino(t_data *data)
 		if (data->puzzle[i] == NL && data->puzzle[i - 1] == NL)
 			check_tetrimino(data);
 	}
+	if (data->tetrimino == 0)
+		errors(0);
 	if (0 != i % data->limit)
-		exit(0);
+		errors(0);
 }
 
 void	check_map(t_data *data, char *filename)

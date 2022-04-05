@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:46:11 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/01 14:29:58 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/05 14:27:44 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	re_create_map(t_data *data, t_tetris *tetris, int nb)
 void	create_map(t_data *data, t_tetris *tetris)
 {
 	int	i;
-	int ret;
+	int	ret;
 
 	ret = ft_sqrt(data->tetrimino * 4);
 	data->size = ret;
@@ -37,41 +37,32 @@ void	create_map(t_data *data, t_tetris *tetris)
 		data->size += 1;
 	i = -1;
 	while (++i < data->size)
-	{
-		// ft_bzero(tetris->map[i], data->size + 1);
 		ft_memset(tetris->map[i], '.', data->size);
-	}
 }
 
 void	cleanblock(t_data *data, t_tetris *tetris, int count)
 {
-	int y;
-	int x;
-	int countletter;
-
-	countletter = 0;
-	y = 0;
-	while (tetris->map[y] && y < data->size)
+	data->countletter = 0;
+	data->y2 = 0;
+	while (tetris->map[data->y2] && data->y2 < data->size)
 	{
-		x = 0;
-		while (tetris->map[y][x] && x < data->size)
+		data->x2 = 0;
+		while (tetris->map[data->y2][data->x2] && data->x2 < data->size)
 		{
-			if (tetris->map[y][x] == 'A' + count)
+			if (tetris->map[data->y2][data->x2] == 'A' + count)
 			{
-				countletter++;
-				tetris->map[y][x] = DOT;
-				if (countletter == 1)
+				data->countletter++;
+				tetris->map[data->y2][data->x2] = DOT;
+				if (data->countletter == 1)
 				{
-					data->y = y;
-					data->x = x;
+					data->y = data->y2;
+					data->x = data->x2;
 				}
 			}
-			x++;
+			data->x2++;
 		}
-		if (countletter == 4)
-		{
+		if (data->countletter == 4)
 			break ;
-		}
-		y++;
+		data->y2++;
 	}
 }

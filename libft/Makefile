@@ -6,7 +6,7 @@
 #    By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 11:18:00 by ksadiku           #+#    #+#              #
-#    Updated: 2022/03/22 11:24:20 by ksadiku          ###   ########.fr        #
+#    Updated: 2022/04/05 15:05:56 by ksadiku          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,23 +32,17 @@ NOTNEED = *~
 all: $(NAME)
 
 $(NAME):
-	@echo "Creating and linking the libft.a library file."
 	@$(CC) $(FLAGS) -I $(HEADER) -c $(SRC)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\nLibrary is finished.\n"
 
 clean:
-	@echo "Deleting OBJECT file and all the files that includes --> ~\n"
 	@rm -f $(OBJ)
 	@rm -f $(NOTNEED)
-	@echo "Deleted!\n"
 
 
 fclean: clean
-	@echo "Deleting everything, including .a files\n"
 	@rm -f $(NAME)
-	@echo "Folder is clean now. To create and link the libft.a library file continue with Make\n"
 
 re: fclean all
 

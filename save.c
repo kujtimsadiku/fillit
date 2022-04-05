@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:43 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/01 14:42:28 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/05 14:16:43 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	addzeros(t_tetris *tetris)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (i < MAXMAP)
 	{
 		ft_bzero(tetris->map[i], MAXMAP);
@@ -23,10 +24,12 @@ static void	addzeros(t_tetris *tetris)
 	}
 }
 
-static void block_values(t_data *data, t_tetris *tetris, int count)
+static void	block_values(t_data *data, t_tetris *tetris, int count)
 {
-	int y = 0;
-	int x;
+	int	y;
+	int	x;
+
+	y = 0;
 	while (y < 4)
 	{
 		x = -1;
@@ -61,28 +64,21 @@ static void	struct_tetrimino(t_data *data, t_tetris *tetris)
 	{
 		if (tetris->piece[data->j][0] != NL && data->i < 4)
 		{
-			// ft_bzero(tetris->minos[count].piece[data->i], 5);
-			ft_memcpy(tetris->minos[count].piece[data->i], tetris->piece[data->j], 4);
-			// tetris.minos[count].piece[data->i] = ft_strsub(tetris->piece[data->j], 0, 4);
-			// printf("%s", tetris->minos[count].piece[data->i]);
+			ft_memcpy(tetris->minos[count].piece[data->i],
+				tetris->piece[data->j], 4);
 			data->i++;
 			if (data->i == 4)
 			{
-				// data->counthash = 0;
 				block_values(data, tetris, count);
 				count++;
 				data->i = 0;
 			}
 		}
-		if (tetris->piece[data->j][0] == NL && tetris->piece[data->j + 1][0] == '\0')
-		{
-			// printf("We have breaked successfully from while loop\n");
+		if (tetris->piece[data->j][0] == NL &&
+			tetris->piece[data->j + 1][0] == '\0')
 			break ;
-		}
-		// printf("\n");
 	}
 }
-
 
 void	save_tetrimino(t_data *data, t_tetris *tetris)
 {
@@ -97,7 +93,6 @@ void	save_tetrimino(t_data *data, t_tetris *tetris)
 		tetris->piece[data->j][data->i] = data->c;
 		if (tetris->piece[data->j][data->i] == NL)
 		{
-			// move_the_piece(data, tetris);
 			data->j++;
 			data->i = -1;
 		}

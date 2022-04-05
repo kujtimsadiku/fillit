@@ -1,33 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solve.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/05 13:56:51 by ksadiku           #+#    #+#             */
+/*   Updated: 2022/04/05 14:33:37 by ksadiku          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
-/*----py[] & px[] hold the puzzle cordination----*/
-// static void block_values(t_data *data, t_tetris *tetris, int count)
-// {
-// 	int y = 0;
-// 	int x;
-// 	while (y < 4)
-// 	{
-// 		x = -1;
-// 		while (++x < 4)
-// 		{
-// 			if (tetris->minos[count].piece[y][x] == HASH)
-// 			{
-// 				data->py[data->counthash] = y;
-// 				data->px[data->counthash] = x;
-// 				data->counthash++;
-// 			}
-// 			if (data->counthash == 4)
-// 			{
-// 				data->counthash = 0;
-// 				break ;
-// 			}
-// 		}
-// 		y++;
-// 	}
-// }
-
-static int	placeblock(t_data *data, t_tetris *tetris, int y, int x, int i)
+/*---tekstia----*/
+static int	placeblock(t_data *data, t_tetris *tetris, int y, int x)
 {
+	int	i;
+
+	i = data->count;
 	if (tetris->map[y + data->py[i][0]][x + data->px[i][0]] == DOT &&
 		tetris->map[y + data->py[i][1]][x + data->px[i][1]] == DOT &&
 		tetris->map[y + data->py[i][2]][x + data->px[i][2]] == DOT &&
@@ -38,14 +28,6 @@ static int	placeblock(t_data *data, t_tetris *tetris, int y, int x, int i)
 		tetris->map[y + data->py[i][1]][x + data->px[i][1]] = 'A' + i;
 		tetris->map[y + data->py[i][2]][x + data->px[i][2]] = 'A' + i;
 		tetris->map[y + data->py[i][3]][x + data->px[i][3]] = 'A' + i;
-		// int i = 0;
-		// while (i < data->size)
-		// {
-		// 	printf("%s\n", tetris->map[i]);
-		// 	i++;
-		// }
-		// printf("\n");
-		// sleep(1);
 		return (1);
 	}
 	else
@@ -64,7 +46,8 @@ static int	solving(t_data *data, t_tetris *tetris, int count)
 		{
 			if (tetris->map[data->y][data->x] == DOT)
 			{
-				if (placeblock(data, tetris, data->y, data->x, count) == 1)
+				data->count = count;
+				if (placeblock(data, tetris, data->y, data->x) == 1)
 				{
 					if (solving(data, tetris, count + 1))
 						return (1);
@@ -79,8 +62,9 @@ static int	solving(t_data *data, t_tetris *tetris, int count)
 }
 
 /*
-	we go piece by piece and every time we couldn't fit the piece
-	we data->count-- that we go there and move the previous piece 1 forward
+**	Here we we call our function "solving" on a while loop.
+** 	If the return from solving is 0 it will re create the map by size + 1
+**	If its 1 it means the map is created.
 */
 void	solve_map(t_data *data, t_tetris *tetris)
 {
@@ -91,11 +75,5 @@ void	solve_map(t_data *data, t_tetris *tetris)
 	{
 		re_create_map(data, tetris, data->size + 1);
 		data->count = 0;
-	}
-	int i = 0;
-	while (i < data->size)
-	{
-		printf("%s\n", tetris->map[i]);
-		i++;
 	}
 }
