@@ -9,7 +9,7 @@ all: $(NAME)
 $(NAME):
 	@make -C libft
 	@$(CC) $(FLAGS) -c $(SRC)
-	@$(CC) $(FLAGS) $(OBJ) libft/libft.a -o $(NAME) -g
+	@$(CC) $(FLAGS) $(OBJ) libft/libft.a -o $(NAME)
 	
 clean:
 	@make -C libft clean
