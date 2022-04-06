@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:47 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/05 16:11:15 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/06 15:17:15 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,6 @@ static void	add_data_values(t_data *data)
 	data->tetrimino = 0;
 	data->limit = 21;
 	data->counthash = 0;
-}
-
-static void	read_file(t_data *data, char *filename)
-{
-	int	ret;
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == 0)
-		errors(0);
-	ret = read(fd, data->puzzle, BUFFSIZE);
-	if (ret < 0)
-		errors(0);
-	data->puzzle[ret] = '\0';
-	close(fd);
 }
 
 static void	check_tetrimino(t_data *data)
@@ -57,7 +42,8 @@ static void	find_tetrimino(t_data *data)
 	int	i;
 
 	i = -1;
-	while (data->puzzle[++i])
+	while (data->puzzle[++i] == DOT || data->puzzle[i] == HASH
+		|| data->puzzle[i] == NL)
 	{	
 		if (data->puzzle[i] == DOT)
 			data->dot++;
@@ -73,15 +59,25 @@ static void	find_tetrimino(t_data *data)
 		if (data->puzzle[i] == NL && data->puzzle[i - 1] == NL)
 			check_tetrimino(data);
 	}
-	if (data->tetrimino == 0)
-		errors(0);
 	if (0 != i % data->limit)
 		errors(0);
 }
 
 void	check_map(t_data *data, char *filename)
 {
+	int	fd;
+	int	ret;
+
 	add_data_values(data);
-	read_file(data, filename);
+	fd = open(filename, O_RDONLY);
+	if (fd == 0)
+		errors(0);
+	ret = read(fd, data->puzzle, BUFFSIZE);
+	if (ret < 0)
+		errors(0);
+	data->puzzle[ret] = '\0';
+	close(fd);
 	find_tetrimino(data);
+	if (data->tetrimino == 0)
+		errors(0);
 }

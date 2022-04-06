@@ -10,6 +10,7 @@
 
 # include <fcntl.h>
 # include "libft/includes/libft.h"
+# include <stdio.h>
 
 
 typedef struct	s_data
@@ -55,7 +56,6 @@ void	solve_map(t_data *data, t_tetris *tetris);
 void	save_tetrimino(t_data *data, t_tetris *tetris);
 void	shifter(t_data *data, int p);
 void	cleanblock(t_data *data, t_tetris *tetris, int count);
-int		check_cordination(t_data *data, int y, int x, int p);
 void	errors(int error);
 
 #endif

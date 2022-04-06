@@ -6,11 +6,22 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 13:56:51 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/05 14:33:37 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/06 15:10:43 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+static int	check_cordination(t_data *data, int y, int x, int p)
+{
+	if (data->size > y + data->py[p][0] && data->size > x + data->px[p][0] &&
+		data->size > y + data->py[p][1] && data->size > x + data->px[p][1] &&
+		data->size > y + data->py[p][2] && data->size > x + data->px[p][2] &&
+		data->size > y + data->py[p][3] && data->size > x + data->px[p][3])
+		return (1);
+	else
+		return (0);
+}
 
 /*---tekstia----*/
 static int	placeblock(t_data *data, t_tetris *tetris, int y, int x)
@@ -74,6 +85,5 @@ void	solve_map(t_data *data, t_tetris *tetris)
 	while (!solving(data, tetris, 0))
 	{
 		re_create_map(data, tetris, data->size + 1);
-		data->count = 0;
 	}
 }

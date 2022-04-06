@@ -1,6 +1,6 @@
 NAME = fillit
 CC = gcc
-SRC = main.c save.c solve.c utilits.c valid.c create_and_clean.c shifter.c
+SRC = main.c save.c solve.c valid.c create_and_clean.c shifter.c
 OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 

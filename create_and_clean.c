@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:46:11 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/05 14:27:44 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/06 15:08:26 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	re_create_map(t_data *data, t_tetris *tetris, int nb)
 
 void	create_map(t_data *data, t_tetris *tetris)
 {
-	int	i;
-	int	ret;
+	int		i;
+	double	ret;
 
 	ret = ft_sqrt(data->tetrimino * 4);
 	data->size = ret;
