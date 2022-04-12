@@ -7,6 +7,7 @@
 # define NL '\n'
 # define HASH '#'
 # define DOT '.'
+# define MAX 26
 
 # include <fcntl.h>
 # include "libft/includes/libft.h"
@@ -29,6 +30,7 @@ typedef struct	s_data
 	int		newline;
 	int		counthash;
 	int		countletter;
+	int		counter;
 	int		py[30][4];
 	int		px[30][4];
 	char	c;
@@ -43,7 +45,7 @@ typedef struct	s_tetrimino
 typedef struct	s_tetris
 {
 	char		map[20][20];
-	char		piece[200][200];
+	char		piece[250][250];
 	char		block[4][4];
 	t_tetrimino	minos[28];
 }				t_tetris;

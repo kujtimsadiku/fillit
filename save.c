@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:43 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/06 13:47:06 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/12 14:18:05 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ static void	struct_tetrimino(t_data *data, t_tetris *tetris)
 				data->i = 0;
 			}
 		}
-		if (tetris->piece[data->j][0] == NL &&
-			tetris->piece[data->j + 1][0] == '\0')
+		if (tetris->piece[data->j + 1][0] == '\0')
 			break ;
 	}
 }
