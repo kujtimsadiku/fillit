@@ -24,7 +24,7 @@ typedef struct	s_data
 	int		count;
 	int		size;
 	int		limit;
-	int		tetrimino;
+	int		tetromino;
 	int		hash;
 	int		dot;
 	int		newline;
@@ -37,26 +37,28 @@ typedef struct	s_data
 	char	puzzle[600];
 }				t_data;
 
-typedef struct	s_tetrimino
+typedef struct	s_tetromino
 {
 	char	piece[4][4];
-}				t_tetrimino;
+}				t_tetromino;
 
 typedef struct	s_tetris
 {
 	char		map[20][20];
 	char		piece[250][250];
 	char		block[4][4];
-	t_tetrimino	minos[28];
+	t_tetromino	minos[28];
 }				t_tetris;
 
-void	check_map(t_data *data, char *filename);
+void	read_map(t_data *data, char *filename);
 void	create_map(t_data *data, t_tetris *tetris);
 void	re_create_map(t_data *data, t_tetris *tetris, int nb);
 void	solve_map(t_data *data, t_tetris *tetris);
-void	save_tetrimino(t_data *data, t_tetris *tetris);
+void	save_tetromino(t_data *data, t_tetris *tetris);
 void	shifter(t_data *data, int p);
 void	cleanblock(t_data *data, t_tetris *tetris, int count);
 void	errors(int error);
+void	print_map(t_data *data, t_tetris *tetris);
+
 
 #endif

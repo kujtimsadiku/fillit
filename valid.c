@@ -6,28 +6,37 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:47 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/12 17:53:28 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:46:56 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*----init values------*/
 
 static void	add_data_values(t_data *data)
 {
 	data->hash = 0;
 	data->dot = 0;
 	data->newline = 0;
-	data->tetrimino = 0;
+	data->tetromino = 0;
 	data->limit = 21;
 	data->counthash = 0;
 }
+
+/*
+ * valid_tet check how many connection we have gotten with the algo
+ * the correct checkins are 6 || 8 depends on the piece
+ * 12 dots and 4 newlines.
+ * we check that the 4x4 is correct
+*/
 
 static void	valid_tet(t_data *data, char *str, int i)
 {
 	if ((data->hash == 6 || data->hash == 8)
 		&& data->dot == 12 && data->newline == 4)
 	{
-		data->tetrimino++;
+		data->tetromino++;
 		data->hash = 0;
 		data->newline = 0;
 		data->dot = 0;
@@ -44,7 +53,13 @@ static void	valid_tet(t_data *data, char *str, int i)
 		errors(0);
 }
 
-static int	check(t_data *data, char *str)
+/*
+ * with the if checking algorithm we can check if the
+ * hashes are connected to each other correctly.
+ * if they are correctly connected we return 1 if not then 0.
+*/
+
+static int	check_map(t_data *data, char *str)
 {
 	int	i;
 
@@ -73,7 +88,15 @@ static int	check(t_data *data, char *str)
 	return (0);
 }
 
-static void	find_tetrimino(t_data *data)
+/*
+ * we create a temp that holds 22 characters (1 extra just in case)
+ * we bzero it always so that there wont be any unnecessary characters
+ * we add i += 21 to skip current 4x4 to get to the next one (4x4)
+ * with error checking we can see that the piece(4x4) is
+ * not a valid piece(4x4)
+*/
+
+static void	find_tetromino(t_data *data)
 {
 	int		i;
 	char	temp[22];
@@ -82,7 +105,7 @@ static void	find_tetrimino(t_data *data)
 	ft_bzero(temp, 22);
 	while (data->puzzle[i] == HASH || data->puzzle[i] == DOT)
 	{	
-		if (check(data, ft_memcpy(temp, &data->puzzle[i], data->limit)))
+		if (check_map(data, ft_memcpy(temp, &data->puzzle[i], data->limit)))
 		{
 			ft_bzero(temp, 22);
 			i += 21;
@@ -95,25 +118,30 @@ static void	find_tetrimino(t_data *data)
 	if (0 != i % data->limit || (data->puzzle[i - 1] == NL
 			&& data->puzzle[i] == '\0' && data->puzzle[i - 2] == NL))
 		errors(0);
-	if (data->tetrimino > MAX)
+	if (data->tetromino > MAX)
 		errors(0);
 }
 
-void	check_map(t_data *data, char *filename)
+/*
+ * we open the file and read it to data->puzzle
+ * and we have BUFFSIZE big enough to read the max
+*/
+
+void	read_map(t_data *data, char *filename)
 {
 	int	fd;
 	int	ret;
 
 	add_data_values(data);
 	fd = open(filename, O_RDONLY);
-	if (fd == 0)
+	if (fd < 0)
 		errors(0);
 	ret = read(fd, data->puzzle, BUFFSIZE);
 	if (ret < 0)
 		errors(0);
 	data->puzzle[ret] = '\0';
 	close(fd);
-	find_tetrimino(data);
-	if (data->tetrimino == 0)
+	find_tetromino(data);
+	if (data->tetromino == 0)
 		errors(0);
 }

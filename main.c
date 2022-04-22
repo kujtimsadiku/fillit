@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:17:05 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/05 15:28:42 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/22 13:02:48 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		errors(1);
-	check_map(&data, argv[1]);
-	save_tetrimino(&data, &tetris);
+	read_map(&data, argv[1]);
+	save_tetromino(&data, &tetris);
 	solve_map(&data, &tetris);
 	print_map(&data, &tetris);
 	return (0);

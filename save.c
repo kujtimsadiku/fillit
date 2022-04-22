@@ -6,11 +6,18 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:43 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/12 14:18:05 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:45:25 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+ * we bzero our tetris->map so there will not be
+ * any bad memory access.
+ * and we make sure we bzero more than it should 
+ * just in case. 
+*/
 
 static void	addzeros(t_tetris *tetris)
 {
@@ -23,6 +30,18 @@ static void	addzeros(t_tetris *tetris)
 		i++;
 	}
 }
+
+/*
+ * with block_values function we get the coordination of the block
+ * Ex;
+ * ....
+ * ....
+ * ##..
+ * .##. 
+ * it means that coordination y[2,2,3,3] and x[0,1,1,2]
+ * its where the piece is located in tetris->minos.piece
+ * the we call the shifter to shift the pieces top left.
+*/
 
 static void	block_values(t_data *data, t_tetris *tetris, int count)
 {
@@ -52,7 +71,13 @@ static void	block_values(t_data *data, t_tetris *tetris, int count)
 	}
 }
 
-static void	struct_tetrimino(t_data *data, t_tetris *tetris)
+/*
+ * we copy from tetris->piece '.' and '#' into the tetris->mino struct
+ * that holds the piece
+ * tetris->minos[the piece order].minos[4][4]
+*/
+
+static void	struct_tetromino(t_data *data, t_tetris *tetris)
 {
 	int	count;
 
@@ -79,7 +104,13 @@ static void	struct_tetrimino(t_data *data, t_tetris *tetris)
 	}
 }
 
-void	save_tetrimino(t_data *data, t_tetris *tetris)
+/*
+ * we save character after character to tetris->piece
+ * by using the if statement we can skip the newline
+ * that is not needed. 
+*/
+
+void	save_tetromino(t_data *data, t_tetris *tetris)
 {
 	int	index;
 
@@ -98,5 +129,5 @@ void	save_tetrimino(t_data *data, t_tetris *tetris)
 		data->i++;
 	}
 	addzeros(tetris);
-	struct_tetrimino(data, tetris);
+	struct_tetromino(data, tetris);
 }

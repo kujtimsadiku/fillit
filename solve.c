@@ -6,13 +6,18 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 13:56:51 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/06 15:10:43 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:59:32 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int	check_cordination(t_data *data, int y, int x, int p)
+/*
+ * check_coordination checks that the puzzle
+ * doesnt overflow out from the map
+*/
+
+static int	check_coordination(t_data *data, int y, int x, int p)
 {
 	if (data->size > y + data->py[p][0] && data->size > x + data->px[p][0] &&
 		data->size > y + data->py[p][1] && data->size > x + data->px[p][1] &&
@@ -23,7 +28,13 @@ static int	check_cordination(t_data *data, int y, int x, int p)
 		return (0);
 }
 
-/*---tekstia----*/
+/*
+ * we check the coordinations y + py[] and x + px[] are equal to a dot
+ * with this example we get faster checking because if all
+ * them are not true(its not equal to a dot) we dont place it at all
+ * and if its true(all the coordination are equal to dot) and if the
+ * check_cordination its also true we place the block and return 1
+*/
 static int	placeblock(t_data *data, t_tetris *tetris, int y, int x)
 {
 	int	i;
@@ -33,7 +44,7 @@ static int	placeblock(t_data *data, t_tetris *tetris, int y, int x)
 		tetris->map[y + data->py[i][1]][x + data->px[i][1]] == DOT &&
 		tetris->map[y + data->py[i][2]][x + data->px[i][2]] == DOT &&
 		tetris->map[y + data->py[i][3]][x + data->px[i][3]] == DOT &&
-		check_cordination(data, y, x, i))
+		check_coordination(data, y, x, i))
 	{
 		tetris->map[y + data->py[i][0]][x + data->px[i][0]] = 'A' + i;
 		tetris->map[y + data->py[i][1]][x + data->px[i][1]] = 'A' + i;
@@ -45,10 +56,17 @@ static int	placeblock(t_data *data, t_tetris *tetris, int y, int x)
 		return (0);
 }
 
+/*
+ * when all the pieces are fitted on the map and
+ * count variable(which piece it is in our tetromino struct)
+ * we solve the map by calling recursively the function and return 1
+ * else we call the cleanblock function.
+*/
+
 static int	solving(t_data *data, t_tetris *tetris, int count)
 {
 	data->y = -1;
-	if (count == data->tetrimino)
+	if (count == data->tetromino)
 		return (1);
 	while (tetris->map[++data->y] && data->y < data->size)
 	{
@@ -73,10 +91,9 @@ static int	solving(t_data *data, t_tetris *tetris, int count)
 }
 
 /*
-**	Here we we call our function "solving" on a while loop.
-** 	If the return from solving is 0 it will re create the map by size + 1
-**	If its 1 it means the map is created.
+ * creates and re creates the map and calls the solving function
 */
+
 void	solve_map(t_data *data, t_tetris *tetris)
 {
 	data->y = 0;
