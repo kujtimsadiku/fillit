@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fillit.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/25 09:02:36 by ksadiku           #+#    #+#             */
+/*   Updated: 2022/04/25 09:14:24 by ksadiku          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FILLIT_H
 
 # define FILLIT_H
@@ -12,37 +24,46 @@
 # include <fcntl.h>
 # include "libft/includes/libft.h"
 
-
-typedef struct	s_data
+typedef struct s_coord
 {
-	int		i; 
-	int		j;
-	int		x;
-	int		y;
 	int		x2;
 	int		y2;
-	int		count;
-	int		size;
-	int		limit;
-	int		tetromino;
+	int		px[30][4];
+	int		py[30][4];
+}				t_coord;
+
+typedef struct s_valid
+{
 	int		hash;
 	int		dot;
 	int		newline;
+}				t_valid;
+
+typedef struct s_data
+{
+	t_coord	coord;
+	t_valid	valid;	
+	int		y;
+	int		x;
+	int		i;
+	int		j;
+	int		size;
+	int		limit;
+	int		tetromino;
+	int		count;
+	int		counter;
 	int		counthash;
 	int		countletter;
-	int		counter;
-	int		py[30][4];
-	int		px[30][4];
 	char	c;
 	char	puzzle[600];
 }				t_data;
 
-typedef struct	s_tetromino
+typedef struct s_tetromino
 {
 	char	piece[4][4];
 }				t_tetromino;
 
-typedef struct	s_tetris
+typedef struct s_tetris
 {
 	char		map[20][20];
 	char		piece[250][250];
@@ -51,14 +72,16 @@ typedef struct	s_tetris
 }				t_tetris;
 
 void	read_map(t_data *data, char *filename);
-void	create_map(t_data *data, t_tetris *tetris);
-void	re_create_map(t_data *data, t_tetris *tetris, int nb);
-void	solve_map(t_data *data, t_tetris *tetris);
 void	save_tetromino(t_data *data, t_tetris *tetris);
-void	shifter(t_data *data, int p);
-void	cleanblock(t_data *data, t_tetris *tetris, int count);
-void	errors(int error);
-void	print_map(t_data *data, t_tetris *tetris);
 
+void	solve_map(t_data *data, t_tetris *tetris);
+void	shifter(t_data *data, int p);
+
+void	print_map(t_data *data, t_tetris *tetris);
+void	errors(int error);
+
+void	re_create_map(t_data *data, t_tetris *tetris, int nb);
+void	cleanblock(t_data *data, t_tetris *tetris, int count);
+void	create_map(t_data *data, t_tetris *tetris);
 
 #endif

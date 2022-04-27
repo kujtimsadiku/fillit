@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 13:56:51 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/22 11:59:32 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/26 15:09:46 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,27 @@
 /*
  * check_coordination checks that the puzzle
  * doesnt overflow out from the map
+ * if it overflows we want the data->y to increase by 1
+ * and we set data->x to zero.
 */
 
 static int	check_coordination(t_data *data, int y, int x, int p)
 {
-	if (data->size > y + data->py[p][0] && data->size > x + data->px[p][0] &&
-		data->size > y + data->py[p][1] && data->size > x + data->px[p][1] &&
-		data->size > y + data->py[p][2] && data->size > x + data->px[p][2] &&
-		data->size > y + data->py[p][3] && data->size > x + data->px[p][3])
+	if (data->size > y + data->coord.py[p][0] &&
+		data->size > x + data->coord.px[p][0] &&
+		data->size > y + data->coord.py[p][1] &&
+		data->size > x + data->coord.px[p][1] &&
+		data->size > y + data->coord.py[p][2] &&
+		data->size > x + data->coord.px[p][2] &&
+		data->size > y + data->coord.py[p][3] &&
+		data->size > x + data->coord.px[p][3])
 		return (1);
 	else
+	{
+		data->y++;
+		data->x = 0;
 		return (0);
+	}
 }
 
 /*
@@ -40,16 +50,24 @@ static int	placeblock(t_data *data, t_tetris *tetris, int y, int x)
 	int	i;
 
 	i = data->count;
-	if (tetris->map[y + data->py[i][0]][x + data->px[i][0]] == DOT &&
-		tetris->map[y + data->py[i][1]][x + data->px[i][1]] == DOT &&
-		tetris->map[y + data->py[i][2]][x + data->px[i][2]] == DOT &&
-		tetris->map[y + data->py[i][3]][x + data->px[i][3]] == DOT &&
+	if (tetris->map[y + data->coord.py[i][0]]
+		[x + data->coord.px[i][0]] == DOT &&
+		tetris->map[y + data->coord.py[i][1]]
+		[x + data->coord.px[i][1]] == DOT &&
+		tetris->map[y + data->coord.py[i][2]]
+		[x + data->coord.px[i][2]] == DOT &&
+		tetris->map[y + data->coord.py[i][3]]
+		[x + data->coord.px[i][3]] == DOT &&
 		check_coordination(data, y, x, i))
 	{
-		tetris->map[y + data->py[i][0]][x + data->px[i][0]] = 'A' + i;
-		tetris->map[y + data->py[i][1]][x + data->px[i][1]] = 'A' + i;
-		tetris->map[y + data->py[i][2]][x + data->px[i][2]] = 'A' + i;
-		tetris->map[y + data->py[i][3]][x + data->px[i][3]] = 'A' + i;
+		tetris->map[y + data->coord.py[i][0]]
+		[x + data->coord.px[i][0]] = 'A' + i;
+		tetris->map[y + data->coord.py[i][1]]
+		[x + data->coord.px[i][1]] = 'A' + i;
+		tetris->map[y + data->coord.py[i][2]]
+		[x + data->coord.px[i][2]] = 'A' + i;
+		tetris->map[y + data->coord.py[i][3]]
+		[x + data->coord.px[i][3]] = 'A' + i;
 		return (1);
 	}
 	else

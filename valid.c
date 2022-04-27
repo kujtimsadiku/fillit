@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:47 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/22 11:46:56 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/25 08:58:47 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 static void	add_data_values(t_data *data)
 {
-	data->hash = 0;
-	data->dot = 0;
-	data->newline = 0;
+	data->valid.hash = 0;
+	data->valid.dot = 0;
+	data->valid.newline = 0;
 	data->tetromino = 0;
 	data->limit = 21;
 	data->counthash = 0;
@@ -33,13 +33,13 @@ static void	add_data_values(t_data *data)
 
 static void	valid_tet(t_data *data, char *str, int i)
 {
-	if ((data->hash == 6 || data->hash == 8)
-		&& data->dot == 12 && data->newline == 4)
+	if ((data->valid.hash == 6 || data->valid.hash == 8)
+		&& data->valid.dot == 12 && data->valid.newline == 4)
 	{
 		data->tetromino++;
-		data->hash = 0;
-		data->newline = 0;
-		data->dot = 0;
+		data->valid.hash = 0;
+		data->valid.newline = 0;
+		data->valid.dot = 0;
 		if (str[i] == NL && str[i + 1] == '\0' && str[i - 1] == NL)
 			errors(0);
 		else if (str[i] == NL && str[i + 1] == NL && str[i - 1] == NL)
@@ -67,17 +67,17 @@ static int	check_map(t_data *data, char *str)
 	while (str[++i])
 	{
 		if (str[i] == DOT)
-			data->dot++;
+			data->valid.dot++;
 		if (str[i] == NL && str[i - 1] != NL)
-			data->newline++;
+			data->valid.newline++;
 		if (str[i] == HASH && str[i + 1] == HASH)
-			data->hash++;
+			data->valid.hash++;
 		if (str[i] == HASH && str[i + 5] == HASH)
-			data->hash++;
+			data->valid.hash++;
 		if (i > 0 && str[i] == HASH && str[i - 1] == HASH)
-			data->hash++;
+			data->valid.hash++;
 		if (i > 4 && str[i] == HASH && str[i - 5] == HASH)
-			data->hash++;
+			data->valid.hash++;
 		if ((data->puzzle[i] == NL && data->puzzle[i + 1] == NL)
 			|| (data->puzzle[i] == NL && data->puzzle[i + 1] == '\0'))
 		{
@@ -105,7 +105,8 @@ static void	find_tetromino(t_data *data)
 	ft_bzero(temp, 22);
 	while (data->puzzle[i] == HASH || data->puzzle[i] == DOT)
 	{	
-		if (check_map(data, ft_memcpy(temp, &data->puzzle[i], data->limit)))
+		if (check_map(data,
+				ft_memcpy(temp, &data->puzzle[i], (size_t)data->limit)))
 		{
 			ft_bzero(temp, 22);
 			i += 21;

@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:46:11 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/22 12:11:33 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/25 08:53:50 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	re_create_map(t_data *data, t_tetris *tetris, int nb)
 
 	i = -1;
 	while (++i < nb)
-		ft_memset(tetris->map[i], '.', nb);
+		ft_memset(tetris->map[i], '.', (size_t)nb);
 	data->size = nb;
-	data->y = 0;
-	data->x = 0;
 	data->count = 0;
 }
 
@@ -46,12 +44,12 @@ void	create_map(t_data *data, t_tetris *tetris)
 	double	ret;
 
 	ret = ft_sqrt(data->tetromino * 4);
-	data->size = ret;
+	data->size = (int)ret;
 	if (ret > data->size)
 		data->size += 1;
 	i = -1;
 	while (++i < data->size)
-		ft_memset(tetris->map[i], '.', data->size);
+		ft_memset(tetris->map[i], '.', (size_t)data->size);
 }
 
 /*
@@ -59,33 +57,35 @@ void	create_map(t_data *data, t_tetris *tetris)
  * with data->countletter we can break the loop so we dont try to read
  * the whole map even if we have found the piece. 
  * with this break we can make the solving more efficient.
- * data->y & data->x will take first location of the first letter
+ * data->y & data->coord.x will take first location of the first letter
  * from the piece that is found so we can continue to the next placement
+ * 65 = 'A'
 */
 
 void	cleanblock(t_data *data, t_tetris *tetris, int count)
 {
 	data->countletter = 0;
-	data->y2 = 0;
-	while (tetris->map[data->y2] && data->y2 < data->size)
+	data->coord.y2 = 0;
+	while (tetris->map[data->coord.y2] && data->coord.y2 < data->size)
 	{
-		data->x2 = 0;
-		while (tetris->map[data->y2][data->x2] && data->x2 < data->size)
+		data->coord.x2 = 0;
+		while (tetris->map[data->coord.y2][data->coord.x2] &&
+			data->coord.x2 < data->size)
 		{
-			if (tetris->map[data->y2][data->x2] == 'A' + count)
+			if (tetris->map[data->coord.y2][data->coord.x2] == 'A' + count)
 			{
 				data->countletter++;
-				tetris->map[data->y2][data->x2] = DOT;
+				tetris->map[data->coord.y2][data->coord.x2] = DOT;
 				if (data->countletter == 1)
 				{
-					data->y = data->y2;
-					data->x = data->x2;
+					data->y = data->coord.y2;
+					data->x = data->coord.x2;
 				}
 			}
-			data->x2++;
+			data->coord.x2++;
 		}
 		if (data->countletter == 4)
 			break ;
-		data->y2++;
+		data->coord.y2++;
 	}
 }

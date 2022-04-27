@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:43 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/22 11:45:25 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/25 08:15:52 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static void	block_values(t_data *data, t_tetris *tetris, int count)
 		{
 			if (tetris->minos[count].piece[y][x] == HASH)
 			{
-				data->py[count][data->counthash] = y;
-				data->px[count][data->counthash] = x;
+				data->coord.py[count][data->counthash] = y;
+				data->coord.px[count][data->counthash] = x;
 				data->counthash++;
 			}
 		}
