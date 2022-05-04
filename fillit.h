@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 09:02:36 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/25 09:14:24 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/05/03 14:09:26 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define MAX 26
 
 # include <fcntl.h>
-# include "libft/includes/libft.h"
+# include "libft/libft.h"
 
 typedef struct s_coord
 {

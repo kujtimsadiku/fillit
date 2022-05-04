@@ -6,7 +6,7 @@
 #    By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 11:18:00 by ksadiku           #+#    #+#              #
-#    Updated: 2022/04/05 15:05:56 by ksadiku          ###   ########.fr        #
+#    Updated: 2022/05/03 14:07:26 by ksadiku          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,15 +26,15 @@ get_next_line.c ft_free_array.c ft_free.c ft_strlenc.c ft_sqrt.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
-HEADER = includes/
+HEADER = *.h
 NOTNEED = *~
 
 all: $(NAME)
 
 $(NAME):
 	@$(CC) $(FLAGS) -I $(HEADER) -c $(SRC)
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
+	@ar rcs $(NAME) $(OBJ)
+#	@ranlib $(NAME)
 
 clean:
 	@rm -f $(OBJ)

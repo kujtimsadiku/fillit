@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:47 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/25 08:58:47 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/05/04 13:14:02 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	check_map(t_data *data, char *str)
 			data->valid.newline++;
 		if (str[i] == HASH && str[i + 1] == HASH)
 			data->valid.hash++;
-		if (str[i] == HASH && str[i + 5] == HASH)
+		if (i < 15 && str[i] == HASH && str[i + 5] == HASH)
 			data->valid.hash++;
 		if (i > 0 && str[i] == HASH && str[i - 1] == HASH)
 			data->valid.hash++;
@@ -114,12 +114,10 @@ static void	find_tetromino(t_data *data)
 		else
 			errors(0);
 	}
-	if (data->puzzle[i] == NL)
+	if (data->puzzle[i - 1] != '\0' || data->tetromino > MAX)
 		errors(0);
-	if (0 != i % data->limit || (data->puzzle[i - 1] == NL
-			&& data->puzzle[i] == '\0' && data->puzzle[i - 2] == NL))
-		errors(0);
-	if (data->tetromino > MAX)
+	if (0 != i % data->limit || (data->puzzle[i - 3] == NL
+			&& data->puzzle[i - 1] == '\0' && data->puzzle[i - 2] == NL))
 		errors(0);
 }
 
