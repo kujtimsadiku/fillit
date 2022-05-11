@@ -6,7 +6,7 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:43 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/05/04 12:27:40 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/04/25 08:15:52 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ void	save_tetromino(t_data *data, t_tetris *tetris)
 	index = -1;
 	while (data->puzzle[++index])
 	{
-		// data->c = data->puzzle[index];
-		tetris->piece[data->j][data->i] = data->puzzle[index];
+		data->c = data->puzzle[index];
+		tetris->piece[data->j][data->i] = data->c;
 		if (tetris->piece[data->j][data->i] == NL)
 		{
 			data->j++;

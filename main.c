@@ -6,11 +6,23 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:17:05 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/04/22 13:02:48 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/05/11 12:13:10 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*----init values------*/
+
+static void	add_data_values(t_data *data)
+{
+	data->valid.hash = 0;
+	data->valid.dot = 0;
+	data->valid.newline = 0;
+	data->tetromino = 0;
+	data->limit = 21;
+	data->counthash = 0;
+}
 
 void	errors(int error)
 {
@@ -44,6 +56,7 @@ int	main(int argc, char **argv)
 	t_data		data;
 	t_tetris	tetris;
 
+	add_data_values(&data);
 	if (argc != 2)
 		errors(1);
 	read_map(&data, argv[1]);

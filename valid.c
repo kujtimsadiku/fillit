@@ -6,22 +6,18 @@
 /*   By: ksadiku <ksadiku@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:00:47 by ksadiku           #+#    #+#             */
-/*   Updated: 2022/05/04 13:14:02 by ksadiku          ###   ########.fr       */
+/*   Updated: 2022/05/11 12:19:45 by ksadiku          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-/*----init values------*/
-
-static void	add_data_values(t_data *data)
+static int	line_check(char *str)
 {
-	data->valid.hash = 0;
-	data->valid.dot = 0;
-	data->valid.newline = 0;
-	data->tetromino = 0;
-	data->limit = 21;
-	data->counthash = 0;
+	if (str[4] == NL && str[9] == NL && str[14] == NL && str[19] == NL)
+		return (1);
+	else
+		return (0);
 }
 
 /*
@@ -33,6 +29,8 @@ static void	add_data_values(t_data *data)
 
 static void	valid_tet(t_data *data, char *str, int i)
 {
+	if (!line_check(str))
+		errors(0);
 	if ((data->valid.hash == 6 || data->valid.hash == 8)
 		&& data->valid.dot == 12 && data->valid.newline == 4)
 	{
@@ -40,7 +38,7 @@ static void	valid_tet(t_data *data, char *str, int i)
 		data->valid.hash = 0;
 		data->valid.newline = 0;
 		data->valid.dot = 0;
-		if (str[i] == NL && str[i + 1] == '\0' && str[i - 1] == NL)
+		if (str[i] == NL && str[i - 1] == NL && str[i + 1] == '\0')
 			errors(0);
 		else if (str[i] == NL && str[i + 1] == NL && str[i - 1] == NL)
 			errors(0);
@@ -131,7 +129,6 @@ void	read_map(t_data *data, char *filename)
 	int	fd;
 	int	ret;
 
-	add_data_values(data);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		errors(0);
